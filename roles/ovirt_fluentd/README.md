@@ -58,7 +58,7 @@ The available variables for this role are:
 
 # Relevant only to elasticsearch output plugin
 
-- `fluentd_elasticsearch_ca_cert_path:` (default: `'{{ fluentd_config_dir }}/elasticsearch_ca_cert.pem'`)
+- `fluentd_elasticsearch_ca_cert_path:` (default: `'{{ ovirt_fluentd_config_dir }}/elasticsearch_ca_cert.pem'`)
 
   Where to find the Fluentd CA certificate used to communicate with Elasticsearch
 

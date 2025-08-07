@@ -1,5 +1,5 @@
 - name: Configure oVirt processing
-  template:
+  ansible.builtin.template:
     src: ovirt-post-processing-common.conf
     dest: '{{ fluentd_config_parts_dir }}/25-ovirt-post-processing-common.conf'
     owner: '{{ fluentd_owner }}'

@@ -1,5 +1,5 @@
 - name: Configure fluentd system configurations
-  template:
+  ansible.builtin.template:
     src: ovirt-fluentd-system-configurations.conf
     dest: '{{ fluentd_config_parts_dir }}/05-ovirt-fluentd-system-configurations.conf'
     owner: '{{ fluentd_owner }}'

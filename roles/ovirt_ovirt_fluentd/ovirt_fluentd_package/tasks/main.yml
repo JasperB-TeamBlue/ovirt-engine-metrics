@@ -1,13 +1,13 @@
 ---
 - name: Install fluentd package
-  yum:
+  ansible.builtin.yum:
     name: '{{ fluentd_package_name }}'
     state: present
   when: manage_packages|default(true)
   notify: restart fluentd
 
 - name: Install fluentd engine plugins
-  yum:
+  ansible.builtin.yum:
     name: '{{ fluentd_engine_plugin_packages }}'
     state: present
   when:
@@ -17,7 +17,7 @@
   notify: restart fluentd
 
 - name: Install fluentd host plugins
-  yum:
+  ansible.builtin.yum:
     name: '{{ fluentd_host_plugin_packages }}'
     state: present
   when:

@@ -1,6 +1,6 @@
 ---
 - name: Configure http input
-  template:
+  ansible.builtin.template:
     src: http-input.conf
     dest: '{{ fluentd_config_parts_dir }}/10-http-input.conf'
     owner: '{{ fluentd_owner }}'

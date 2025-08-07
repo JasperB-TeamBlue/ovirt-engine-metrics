@@ -1,7 +1,9 @@
 ---
-- block:
+- name: Configure ovirt host logs processing
+  when: ovirt_metrics_host_deploy is defined or inventory_hostname in groups.hosts
+  block:
     - name: Ensure fluentd pos_files directory exists
-      file:
+      ansible.builtin.file:
         path: '{{ fluentd_pos_files_dir }}'
         state: directory
         owner: '{{ fluentd_owner }}'
@@ -9,10 +11,10 @@
         mode: '{{ fluentd_pos_files_dir_mode }}'
 
     - name: Create ovirt-vdsm.log.pos
-      copy:
+      ansible.builtin.copy:
         content: ""
         dest: '{{ fluentd_ovirt_vdsm_log_pos_file }}'
-        force: no
+        force: false
         owner: '{{ fluentd_owner }}'
         group: '{{ fluentd_group }}'
         mode: '{{ fluentd_pos_files_mode }}'
@@ -20,7 +22,7 @@
       notify: restart fluentd
 
     - name: Configure oVirt host logs processing
-      template:
+      ansible.builtin.template:
         src: ovirt-host-processing.conf
         dest: '{{ fluentd_config_parts_dir }}/20-ovirt-host-logs-processing.conf'
         owner: '{{ fluentd_owner }}'
@@ -30,10 +32,8 @@
       notify: restart fluentd
 
     - name: Remove host logs configuration file when collection is disabled
-      file:
+      ansible.builtin.file:
         state: absent
         path: '{{ fluentd_config_parts_dir }}/20-ovirt-host-logs-processing.conf'
       when: not configure_host_logs_processing
       notify: restart fluentd
-
-  when: ovirt_metrics_host_deploy is defined or inventory_hostname in groups.hosts
